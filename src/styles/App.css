@@ -1,0 +1,83 @@
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-rows: 40px auto;
+  height: 100vh;
+  width: 100vw;
+  background-color: #001;
+  color: #eef;
+}
+
+.NavBar {
+  background-color: black;
+  color: #eef;
+  display: grid;
+  grid-template-columns: 10% 70% 20%;
+}
+
+.logo {
+  margin: auto;
+  padding: 1em;
+  font-size: 300%;
+}
+.formContainer {
+  height: 20vh;
+  overflow: hidden;
+}
+.mainForm {
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(4, 20vh);
+  margin: auto;
+  line-height: 10vh;
+  font-size: 200%;
+  transition: top 2s;
+}
+
+.mainInput {
+  -webkit-appearance: none;
+  background-color: #001;
+  outline: none;
+  border-top-style: none;
+  border-left-style: none;
+
+  border-right-style: none;
+  color: #eef;
+}
+
+.formButton {
+  -webkit-appearance: none;
+  background-color: #001;
+  outline: none;
+  border-style: none;
+  color: #eef;
+  transition: font-size 0.5s;
+}
+.formButton:hover {
+  font-size: 120%;
+  transition: font-size 0.5s;
+}
+
+.inputButton {
+  -webkit-appearance: none;
+  background-color: #001;
+  outline: none;
+  border-style: none;
+  color: #eef;
+}
+.dropdownInput {
+  -webkit-appearance: none;
+  text-align: center;
+  background-color: #001;
+  outline: none;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  border-radius: 0;
+  color: #eef;
+}
+
+.clearDropMenu {
+  background: url("/dropdown.png") no-repeat right center;
+  width: 470px;
+}
