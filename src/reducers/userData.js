@@ -1,10 +1,6 @@
 export default function userData(
   state = {
-    user: {
-      id: 1,
-      name: "Maxwell",
-      startDate: new Date(Date.parse("2017-12-26"))
-    },
+    user: null,
     dateTime: Date.now(),
     habits: {},
     dataLoaded: false
@@ -12,20 +8,25 @@ export default function userData(
   action
 ) {
   switch (action.type) {
-    case "SET_USER_DATA":
-      debugger;
+    case "SET_HABITS":
       return {
         ...state,
+        habits: action.habits,
         dataLoaded: true
       };
-    case "CREATE_HABIT":
-      // console.log(action.payload);
-      // const newHabit = { ...action.payload, user_id: state.user.id };
-      // debugger;
-
+    case "SET_USER":
       return {
         ...state,
-        habits: { ...state.habits, ...action.payload }
+        user: action.user[0]
+      };
+
+    case "CREATE_HABIT":
+      return {
+        ...state,
+        habits: {
+          ...state.habits,
+          [Object.keys(state.habits).length + 1]: action.habit
+        }
       };
     default:
       return state;

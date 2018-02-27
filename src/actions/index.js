@@ -1,24 +1,48 @@
-import { RestfulAdapter } from "../adapter";
+import IDBAdapter from "../adapters/IDBAdapter";
 
 export function getUserData() {
-  //runs at App.js componentDidMount to get current location.  Map will render once lat/long are set
   return dispatch => {
-    RestfulAdapter.showFetch("users", 1).then(userData => {
-      dispatch(setUserData(userData));
+    const habits = IDBAdapter.all("habits").then(habits => {
+      dispatch({ type: "SET_HABITS", habits });
+    });
+
+    const user = IDBAdapter.all("user").then(user => {
+      const newUser = {
+        id: Math.random()
+          .toString(36)
+          .substr(2, 9),
+        joined: Date.now()
+      };
+
+      !user.length
+        ? IDBAdapter.create("user", newUser).then(user => {
+            console.log(user, newUser);
+            debugger;
+            dispatch({ type: "SET_USER", user });
+          })
+        : dispatch({ type: "SET_USER", user });
     });
   };
 }
 
-export function gettingUserData() {
-  return {
-    type: "GETTING_USER_DATA"
-  };
-}
+// export function gettingUserData() {
+//   return {
+//     type: "GETTING_USER_DATA"
+//   };
+// }
 
-export function setUserData(payload) {
-  return {
-    type: "SET_USER_DATA",
-    payload
+// export function setUserData(payload) {
+//   return {
+//     type: "SET_USER_DATA",
+//     payload
+//   };
+// }
+export function checkIn(habitId, data) {
+  const checkIn = { habitId, ...data };
+  return dispatch => {
+    IDBAdapter.create("check-ins", checkIn).then(() => {
+      dispatch({ type: "ADD_CHECKIN", checkIn });
+    });
   };
 }
 
@@ -33,22 +57,24 @@ export function createHabit({
   quantity,
   unit
 }) {
-  let id = Math.round(Math.random() * 100000);
-  return {
-    type: "CREATE_HABIT",
-    payload: {
-      [id]: {
-        id,
-        user_id,
-        habit,
-        frequency,
-        hour,
-        minute,
-        ampm,
-        logType,
-        quantity,
-        unit
-      }
-    }
+  const id = Math.round(Math.random() * 100000);
+  const newHabit = {
+    id,
+    user_id,
+    habit,
+    frequency,
+    hour,
+    minute,
+    ampm,
+    logType,
+    quantity,
+    unit,
+    created_at: Date.now(),
+    checkins: []
+  };
+  return dispatch => {
+    IDBAdapter.create("habits", newHabit)
+      .then(newHabit => dispatch({ type: "CREATE_HABIT", habit: newHabit }))
+      .catch(console.log);
   };
 }

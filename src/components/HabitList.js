@@ -6,12 +6,23 @@ import HabitListing from "./HabitListing";
 class HabitList extends Component {
   habits = () => {
     console.log(this.props);
-    // return this.props.habits.map(habit => (
-    //   <HabitListing key={habit.id} {...habit} />
-    // ));
+
+    return this.props.habits.map(habit => (
+      <HabitListing key={habit.id} {...habit} />
+    ));
   };
 
-  render = () => <div className="HabitList">{this.habits()}</div>;
+  render = () => (
+    <div
+      className="HabitList"
+      style={{
+        display: "grid",
+        gridTemplateRows: `repeat(${this.habits.length}, 30px)`
+      }}
+    >
+      {this.habits()}
+    </div>
+  );
 }
 
 export default connect(({ userData }) => ({ ...userData }), null)(HabitList);
