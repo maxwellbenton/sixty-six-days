@@ -1,12 +1,14 @@
 import idb from "idb";
 
 function startDB() {
-  var dbPromise = idb.open("frontier", 2, upgradeDb => {
+  var dbPromise = idb.open("sixty-six-days", 3, upgradeDb => {
     switch (upgradeDb.oldVersion) {
       case 0:
-        upgradeDb.createObjectStore("tiles", { keyPath: "coords" });
+        upgradeDb.createObjectStore("habits", { keyPath: "id" });
       case 1:
-        upgradeDb.createObjectStore("players", { keyPath: "username" });
+        upgradeDb.createObjectStore("user", { keyPath: "id" });
+      case 2:
+        upgradeDb.createObjectStore("check-ins", { keyPath: "id" });
     }
   });
   return dbPromise;
@@ -14,27 +16,33 @@ function startDB() {
 
 class IDBAdapter {
   static find = (table, id) =>
-    startDB().then(db =>
-      db
-        .transaction(table)
-        .objectStore(table)
-        .get(id)
-    );
+    startDB()
+      .then(db =>
+        db
+          .transaction(table)
+          .objectStore(table)
+          .get(id)
+      )
+      .then(object => object);
 
   static create = (table, object) =>
-    startDB().then(db => {
-      var tx = db.transaction(table, "readwrite");
-      tx.objectStore(table).put(object);
-      return tx.complete;
-    });
+    startDB()
+      .then(db => {
+        var tx = db.transaction(table, "readwrite");
+        tx.objectStore(table).put(object);
+        return tx.complete;
+      })
+      .then(object => object);
 
   static all = table =>
-    startDB().then(db =>
-      db
-        .transaction(table)
-        .objectStore(table)
-        .getAll()
-    );
+    startDB()
+      .then(db =>
+        db
+          .transaction(table)
+          .objectStore(table)
+          .getAll()
+      )
+      .then(object => object);
 
   static filter = (table, callback) =>
     startDB()

@@ -6,6 +6,7 @@
   width: 100vw;
   background-color: #001;
   color: #eef;
+  overflow-y: scroll;
 }
 
 .NavBar {
@@ -21,6 +22,10 @@
   font-size: 300%;
 }
 .formContainer {
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  top: 15vh;
   height: 20vh;
   overflow: hidden;
 }
@@ -81,4 +86,20 @@
 .clearDropMenu {
   background: url("/dropdown.png") no-repeat right center;
   width: 470px;
+}
+
+.HabitList {
+  position: relative;
+  width: 100%;
+  margin: auto;
+  top: 10vh;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.HabitListing {
+  width: 100%;
+  margin: auto;
+  top: 0;
+  overflow: hidden;
 }

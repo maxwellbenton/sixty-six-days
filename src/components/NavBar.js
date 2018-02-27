@@ -5,9 +5,9 @@ class NavBar extends Component {
   render() {
     return (
       <div className="NavBar">
-        <span>|||</span>
-        <span />
-        <span>User</span>
+        // <span>|||</span>
+        // <span />
+        // <span>User</span>
       </div>
     );
   }
