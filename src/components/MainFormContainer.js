@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createHabit } from "../actions";
+// import { createHabit } from "../actions";
 import FirstInput from "./FirstInput";
 
 class MainFormContainer extends Component {
@@ -77,7 +77,7 @@ class MainFormContainer extends Component {
         return { top: pState.top - 20 };
       });
     } else {
-      this.props.createHabit(this.state);
+      // this.props.createHabit(this.state);
     }
   };
 
@@ -239,6 +239,6 @@ class MainFormContainer extends Component {
   }
 }
 
-export default connect(({ userData }) => ({ ...userData.user }), {
-  createHabit
-})(MainFormContainer);
+export default connect(({ userData }) => ({ ...userData.user }), null)(
+  MainFormContainer
+);
