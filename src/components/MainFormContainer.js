@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createHabit } from "../actions";
+import FirstInput from "./FirstInput";
 
-class MainForm extends Component {
+class MainFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,10 +29,6 @@ class MainForm extends Component {
         "Saturday"
       ]
     };
-  }
-
-  componentDidMount() {
-    this.firstInput.focus();
   }
 
   unitOptions = () =>
@@ -99,27 +96,11 @@ class MainForm extends Component {
     return (
       <div className="formContainer">
         <div className="mainForm" style={{ top: `${this.state.top}vh` }}>
-          <form onSubmit={this.handleSubmit}>
-            I would like to{" "}
-            <input
-              style={{
-                width: `${this.state.habit.length * 13 + 10}px`,
-                minWidth: "100px"
-              }}
-              ref={input => {
-                this.firstInput = input;
-              }}
-              className="mainInput"
-              type="text"
-              name="habit"
-              value={this.state.habit}
-              onChange={this.handleChange}
-              autoComplete="off"
-            />
-            <div>
-              <input type="submit" value="Continue" className="formButton" />
-            </div>
-          </form>
+          <FirstInput
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            habit={this.state.habit}
+          />
           <form onSubmit={this.handleSubmit}>
             I would like to do this{" "}
             <select
@@ -260,4 +241,4 @@ class MainForm extends Component {
 
 export default connect(({ userData }) => ({ ...userData.user }), {
   createHabit
-})(MainForm);
+})(MainFormContainer);

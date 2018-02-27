@@ -30,6 +30,7 @@
   grid-template-rows: repeat(4, 20vh);
   margin: auto;
   line-height: 10vh;
+  white-space: normal;
   font-size: 200%;
   transition: top 2s;
 }

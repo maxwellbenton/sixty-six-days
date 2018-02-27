@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserData } from "../actions";
+import { createHabit } from "../actions";
 import { Switch, Route, Redirect } from "react-router-dom";
-import MainForm from "./MainForm";
+import MainFormContainer from "./MainFormContainer";
 import HabitList from "./HabitList";
 import NavBar from "./NavBar";
 import "../styles/App.css";
@@ -24,7 +24,7 @@ class App extends Component {
             render={() => (
               <div>
                 <div className="logo">Sixty Six Days</div>
-                <MainForm />
+                <MainFormContainer />
                 <HabitList />
               </div>
             )}
@@ -45,4 +45,4 @@ class App extends Component {
 
 const mapStateToProps = ({ userData }) => ({ ...userData });
 
-export default connect(mapStateToProps, { getUserData })(App);
+export default connect(mapStateToProps, { createHabit })(App);

@@ -1,13 +1,4 @@
-import { RestfulAdapter } from "../adapter";
-
-export function getUserData() {
-  //runs at App.js componentDidMount to get current location.  Map will render once lat/long are set
-  return dispatch => {
-    RestfulAdapter.showFetch("users", 1).then(userData => {
-      dispatch(setUserData(userData));
-    });
-  };
-}
+import IDBAdapter from "../adapter/IDBAdapter";
 
 export function gettingUserData() {
   return {
@@ -15,12 +6,12 @@ export function gettingUserData() {
   };
 }
 
-export function setUserData(payload) {
-  return {
-    type: "SET_USER_DATA",
-    payload
-  };
-}
+// export function setUserData(payload) {
+//   return {
+//     type: "SET_USER_DATA",
+//     payload
+//   };
+// }
 
 export function createHabit({
   user_id,
@@ -34,6 +25,7 @@ export function createHabit({
   unit
 }) {
   let id = Math.round(Math.random() * 100000);
+  debugger;
   return {
     type: "CREATE_HABIT",
     payload: {
