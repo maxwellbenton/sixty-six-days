@@ -1,32 +1,38 @@
 export default function userData(
   state = {
+    currentUser: { user: {} },
     user: null,
     dateTime: Date.now(),
-    habits: {},
+    notes: [],
     dataLoaded: false
   },
   action
 ) {
   switch (action.type) {
-    case "SET_HABITS":
+    case "SET_NOTES":
       return {
         ...state,
-        habits: action.habits,
-        dataLoaded: true
-      };
-    case "SET_USER":
-      return {
-        ...state,
-        user: action.user[0]
+        notes: action.payload
       };
 
-    case "CREATE_HABIT":
+    case "ADD_NOTE":
       return {
         ...state,
-        habits: {
-          ...state.habits,
-          [Object.keys(state.habits).length + 1]: action.habit
+        notes: [...state.notes, action.payload]
+      };
+    case "UPDATE_NOTE":
+      let newNotes = state.notes.filter(note => {
+        if (note.id !== action.payload.id) {
+          return note;
         }
+      });
+      newNotes = [...newNotes, action.payload];
+      return { ...state, notes: newNotes };
+
+    case "REMOVE_NOTE":
+      return {
+        ...state,
+        notes: state.notes.filter(note => note.id !== action.payload)
       };
     default:
       return state;

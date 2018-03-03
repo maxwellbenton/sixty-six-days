@@ -1,22 +1,22 @@
 import idb from "idb";
 
 function startDB() {
-  var dbPromise = idb.open("sixty-six-days", 3, upgradeDb => {
+  var dbPromise = idb.open("sixty-six-days", 2, upgradeDb => {
     switch (upgradeDb.oldVersion) {
       case 0:
-        upgradeDb.createObjectStore("habits", { keyPath: "id" });
+        upgradeDb.createObjectStore("notes", { keyPath: "id" });
       case 1:
-        upgradeDb.createObjectStore("user", { keyPath: "id" });
-      case 2:
-        upgradeDb.createObjectStore("check-ins", { keyPath: "id" });
+        upgradeDb.createObjectStore("books", { keyPath: "id" });
+      default:
+        break;
     }
   });
   return dbPromise;
 }
 
 class IDBAdapter {
-  static find = (table, id) =>
-    startDB()
+  static find = (table, id) => {
+    return startDB()
       .then(db =>
         db
           .transaction(table)
@@ -24,18 +24,20 @@ class IDBAdapter {
           .get(id)
       )
       .then(object => object);
+  };
 
-  static create = (table, object) =>
-    startDB()
+  static create = (table, object) => {
+    return startDB()
       .then(db => {
         var tx = db.transaction(table, "readwrite");
         tx.objectStore(table).put(object);
         return tx.complete;
       })
       .then(object => object);
+  };
 
-  static all = table =>
-    startDB()
+  static all = table => {
+    return startDB()
       .then(db =>
         db
           .transaction(table)
@@ -43,9 +45,10 @@ class IDBAdapter {
           .getAll()
       )
       .then(object => object);
+  };
 
-  static filter = (table, callback) =>
-    startDB()
+  static filter = (table, callback) => {
+    return startDB()
       .then(db =>
         db
           .transaction(table)
@@ -53,6 +56,15 @@ class IDBAdapter {
           .getAll()
       )
       .then(data => data.filter(callback));
+  };
+  static delete = (table, id) => {
+    return startDB().then(db =>
+      db
+        .transaction(table, "readwrite")
+        .objectStore(table)
+        .delete(id)
+    );
+  };
 }
 
 export default IDBAdapter;

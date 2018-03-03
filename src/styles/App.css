@@ -9,6 +9,54 @@
   overflow-y: scroll;
 }
 
+form {
+  display: inline-block;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  outline: none;
+  border: 1px #bbb solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: "Roboto", sans-serif;
+  background: #333;
+  color: white;
+}
+
+button {
+  position: absolute;
+  top: 1%;
+  right: 0;
+  border: none;
+
+  background: rgba(0, 0, 0, 0);
+  color: white;
+  cursor: pointer;
+  transition: font-size 0.1s;
+}
+button:hover {
+  font-size: 120%;
+}
+
+.note {
+  position: absolute;
+  padding: 20px 5px;
+  min-width: 100px;
+  width: auto;
+  min-height: 50px;
+  height: auto;
+  border-radius: 7px;
+  /* transform: rotate(-30deg);
+  transition: transform 5s; */
+}
+
+/* .note:hover {
+  transform: rotate(30deg);
+} */
 .tile {
   position: absolute;
   clip-path: polygon(70% 2%, 98% 50%, 70% 99%, 30% 99%, 2% 50%, 30% 2%);
