@@ -1,14 +1,19 @@
 import idb from "idb";
 
 function startDB() {
-  var dbPromise = idb.open("sixty-six-days", 3, upgradeDb => {
+  var dbPromise = idb.open("frontier", 3, upgradeDb => {
     switch (upgradeDb.oldVersion) {
       case 0:
-        upgradeDb.createObjectStore("habits", { keyPath: "id" });
-      case 1:
         upgradeDb.createObjectStore("user", { keyPath: "id" });
+      // falls through
+      case 1:
+        upgradeDb.createObjectStore("tiles", { keyPath: "id" });
+      // falls through
       case 2:
-        upgradeDb.createObjectStore("check-ins", { keyPath: "id" });
+        upgradeDb.createObjectStore("items", { keyPath: "id" });
+      // falls through
+      default:
+        break;
     }
   });
   return dbPromise;
@@ -32,7 +37,7 @@ class IDBAdapter {
         tx.objectStore(table).put(object);
         return tx.complete;
       })
-      .then(object => object);
+      .then(() => this.a.find(table, object.id));
 
   static all = table =>
     startDB()

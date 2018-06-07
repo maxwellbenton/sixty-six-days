@@ -4,22 +4,33 @@
   grid-template-rows: 40px auto;
   height: 100vh;
   width: 100vw;
-  background-color: #001;
-  color: #eef;
-  overflow-y: scroll;
+  background-color: #aaa;
+  color: #000;
 }
 
 .tile {
   position: absolute;
+  background-color: #555;
+  word-wrap: break-word;
   clip-path: polygon(70% 2%, 98% 50%, 70% 99%, 30% 99%, 2% 50%, 30% 2%);
 }
 
+.boardContainer {
+  position: absolute;
+  background-color: blue;
+  height: 100%;
+  width: 100%;
+
+  margin: 0 auto;
+}
+
 .board {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  position: absolute;
+  transform: rotateX(45deg);
 }
 
 .NavBar {
+  position: absolute;
   background-color: black;
   color: #eef;
   display: grid;

@@ -1,20 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserData } from "../actions";
-import { Switch, Route, Redirect, withRouter, Link } from "react-router-dom";
-import MainFormContainer from "./MainFormContainer";
-import HabitList from "./HabitList";
+import { getInitialLocationAndData, getLocation } from "../actions";
+import { Switch, Route, withRouter } from "react-router-dom";
+// import MainFormContainer from "./MainFormContainer";
+// import HabitList from "./HabitList";
 import Board from "./Board";
 import Welcome from "./Welcome";
-import NavBar from "./NavBar";
+// import NavBar from "./NavBar";
 import "../styles/App.css";
-import isLoading from "../HoCs/isLoading";
+// import isLoading from "../HoCs/isLoading";
 
 class App extends Component {
-  // componentDidMount() {
-  //   this.props.getUserData();
-  // }
+  state = {
+    intervalId: null
+  };
 
+  componentDidMount() {
+    this.props.getInitialLocationAndData();
+    var intervalId = setInterval(() => this.props.getLocation(), 30000);
+    this.setState({ intervalId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
   render() {
     // const LoadedForm = isLoading(
     //   MainFormContainer,
@@ -38,6 +47,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ userData }) => ({ ...userData });
-
-export default withRouter(connect(mapStateToProps, null)(App));
+export default withRouter(
+  connect(null, { getInitialLocationAndData, getLocation })(App)
+);

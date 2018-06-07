@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
-import userData from "./userData";
+
+import tileData from "./tileData";
 export default combineReducers({
-  userData
+  tileData
 });

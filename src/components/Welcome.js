@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getLocation } from "../actions";
+
 class Welcome extends React.Component {
-  handleStart = () => {};
+  handleStart = () => {
+    this.props.getLocation();
+  };
 
   render() {
     return (
@@ -14,4 +19,4 @@ class Welcome extends React.Component {
   }
 }
 
-export default Welcome;
+export default connect(null, { getLocation })(Welcome);
